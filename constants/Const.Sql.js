@@ -1,0 +1,3 @@
+const AUTOINCREMENT = 'AUTOINCREMENT';
+const NULL = 'NULL';
+const NOTNULL = 'NOT NULL';
