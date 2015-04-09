@@ -1,4 +1,6 @@
 /**
+ * cordova plugin add org.apache.cordova.file
+ *
  * Cet Helper à pour but de faliciter la gestion des fichiers
  *
  * Utilise les fonctionnalités FileEntry et DirectoryEntry d'HTML 5 en Javascript.
@@ -16,9 +18,11 @@
  * @param bool 	typeStorage 	default window.PERSISTENT 	le type de stockage, temporaire ou long
  *
  * @access public
- * @see CswFile.prototype.CswFile()
+ * @see CswFile.prototype.init()
  * @since Class available since Release 0.0.1
  */
+
+ // TO DO create a method exist
 
 var CswFile = function(filesize, typeStorage)
 {
@@ -40,7 +44,8 @@ var CswFile = function(filesize, typeStorage)
 	this.filesystem = null;
 	this.errorMsg = false;
 
-	this.onCallback = function(){ alert('onCallback'); };
+	this.onCallback = function(){ /*alert('onCallback');*/ };
+	this.init();
 }
 
 
@@ -53,7 +58,7 @@ var CswFile = function(filesize, typeStorage)
  * @since Method available since Release 0.0.1
  */
 
-CswFile.prototype.CswFile = function()
+CswFile.prototype.init = function()
 {
 	var obj = this;
 
@@ -226,7 +231,7 @@ CswFile.prototype.createFolder = function(name, path, callback)
 		{
 			object.getDirectory
 			(
-				uri, //folder name
+				name, //folder name
 				{
 					create: true
 				}, 
@@ -262,13 +267,13 @@ CswFile.prototype.createFolder = function(name, path, callback)
  * @since Class available since Release 0.0.1
  */
 
-CswFile.prototype.createFolders = function(folders, path, rootDirEntry)
+CswFile.prototype.createFolders = function(uri, path, rootDirEntry)
 {
 	var obj = this;
 
 	window.resolveLocalFileSystemURL
 	(
-		folders,
+		path,
 		function(object)
 		{
 			if(typeof rootDirEntry != 'object')
@@ -292,7 +297,7 @@ CswFile.prototype.createFolders = function(folders, path, rootDirEntry)
 						var directories  = folders.slice(1);
 						directories = directories.join('/');
 
-						obj.createFolders(directories, path, dirEntry);
+						obj.createFolders(directories, path+'/'+folders[0], dirEntry);
 					}
 				}, 
 				obj.errorHandler
@@ -339,7 +344,6 @@ CswFile.prototype.readMap = function(callback, uri)
 		function(dirEntry) 
 		{
 			var dirReader = dirEntry.createReader();
-
 			dirReader.readEntries
 			(
 				function(entries) // entries Type FileEntry
@@ -559,7 +563,7 @@ CswFile.prototype.writeAfter = function(uri, text, callback)
  * @since Class available since Release 0.0.1
  */
 
-CswFile.prototype.deleleFile = function(uri, callback)
+CswFile.prototype.deleteFile = function(uri, callback)
 {
 	var obj = this;
 
@@ -606,11 +610,9 @@ CswFile.prototype.deleteFolder = function(uri, callback)
 		return;
 
 	var obj = this;
-
 	window.resolveLocalFileSystemURL
 	(
-		uri, 
-		{create: false}, 
+		uri,  
 		function(dirEntry) 
 		{
 			dirEntry.removeRecursively

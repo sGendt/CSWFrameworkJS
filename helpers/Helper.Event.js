@@ -222,7 +222,6 @@ CswEvent.prototype.onVolumeDown = function(callback)
 
 
 /**
-/**
  * Cette méthode applique un écouteur d'événements sur l'action volumeUp (volume up button)
  *
  * @param 	function 	eventType 	Cette function est appelée quand l'événement est déclenché,

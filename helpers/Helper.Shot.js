@@ -1,3 +1,8 @@
+/**
+ * cordova plugin add org.apache.cordova.camera
+ */
+
+
 function Shot(cbSuccess, cbError)
 {
 	this.img = null;
@@ -24,9 +29,9 @@ Shot.prototype.init = function()
 			that.onShotError(error);
 		}, 
 		{ 
-			saveToPhotoAlbum: true,
+			quality: 75,
 			correctOrientation: true,
-			destinationType: Camera.DestinationType.DATA_URL
+			destinationType: Camera.DestinationType.FILE_URI,
 		}
 	);
 }

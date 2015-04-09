@@ -1,4 +1,6 @@
 /**
+ * cordova plugin add org.apache.cordova.network-information
+ *
  * Cet Helper à pour but de faliciter la gestion des informations réseau
  *
  * Utilise la fonctionnalité navigator.connection, les écouteurs d'événement "online"/"offline"
