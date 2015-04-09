@@ -24,11 +24,11 @@
  * @param function 	onOffline  	Cette fonction callback est appelé lors de la perte d'une connection réseau
  *
  * @access public
- * @see Network.prototype.network()
+ * @see CswNetwork.prototype.setListener()
  * @since Class available since Release 0.0.1
  */
 
-function Network(onOnline, onOffline)
+function CswNetwork(onOnline, onOffline)
 {
 	this.onOnline = function(){};
 	this.onOffline = function(){};
@@ -39,19 +39,7 @@ function Network(onOnline, onOffline)
 		this.onOnline = onOnline;
 	if(typeof onOffline == 'function')
 		this.onOffline = onOffline;
-}
 
-
-/**
- * Cette méthode est appelé comme constructeur
- *
- * @access public
- * @see Network.prototype.setListener()
- * @since Method available since Release 0.0.1
- */
-
-Network.prototype.network = function()
-{
 	this.setListener();
 }
 
@@ -61,12 +49,12 @@ Network.prototype.network = function()
  * et la perte de réseau
  *
  * @access public
- * @see Network.prototype.on()
- * @see Network.prototype.off()
+ * @see CswNetwork.prototype.on()
+ * @see CswNetwork.prototype.off()
  * @since Method available since Release 0.0.1
  */
 
-Network.prototype.setListener = function()
+CswNetwork.prototype.setListener = function()
 {
 	document.addEventListener("online", this.on, false);
 	document.addEventListener("offline", this.off, false);
@@ -79,11 +67,11 @@ Network.prototype.setListener = function()
  * exécute la méthode callback défini dans le constructeur
  *
  * @access public
- * @see Network()
+ * @see CswNetwork()
  * @since Method available since Release 0.0.1
  */
 
-Network.prototype.on = function()
+CswNetwork.prototype.on = function()
 {
 	this.is = true;
 	this.onOnline();
@@ -96,11 +84,11 @@ Network.prototype.on = function()
  * exécute la méthode callback défini dans le constructeur
  *
  * @access public
- * @see Network()
+ * @see CswNetwork()
  * @since Method available since Release 0.0.1
  */
 
-Network.prototype.off = function()
+CswNetwork.prototype.off = function()
 {
 	this.is = false;
 	this.onOffline();
@@ -117,7 +105,7 @@ Network.prototype.off = function()
  * @since Method available since Release 0.0.1
  */
 
-Network.prototype.has = function()
+CswNetwork.prototype.has = function()
 {
 	return Connection.NONE != navigator.connection.type && this.is;
 }
@@ -140,7 +128,7 @@ Network.prototype.has = function()
  * @since Method available since Release 0.0.1
  */
 
-Network.prototype.get = function()
+CswNetwork.prototype.get = function()
 {
 	return navigator.connection.type;
 }
