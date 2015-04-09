@@ -110,6 +110,9 @@ Network.prototype.off = function()
 /**
  * Cette méthode est appelé pour obtenir l'état du réseau
  *
+ * @return 	boolean 	Retourne true si il existe une connexion réseau
+ * 						retourne false si il n'existe pas de connexion réseau
+ *
  * @access public
  * @since Method available since Release 0.0.1
  */
@@ -122,6 +125,16 @@ Network.prototype.has = function()
 
 /**
  * Cette méthode est appelé pour obtenir le type de connection
+ *
+ * @return 	string 	Retourne le type de connexion sous la forme d'une chaine de caractères:
+ * 					- Unknown
+ *					- Ethernet
+ *					- WiFi
+ *					- Cell
+ *					- Cell_2G
+ *					- Cell_3G
+ *					- Cell_4G
+ *					- NONE
  *
  * @access public
  * @since Method available since Release 0.0.1
