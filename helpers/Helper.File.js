@@ -41,6 +41,8 @@ var CswFile = function(filesize, typeStorage)
 	if(typeof typeStorage != 'undefined')
 		this.type = typeStorage;
 
+	this.hasSD = false;
+
 	this.filesystem = null;
 	this.errorMsg = false;
 
@@ -62,7 +64,9 @@ CswFile.prototype.init = function()
 {
 	var obj = this;
 
+	window.resolveLocalFileSystemURL = window.resolveLocalFileSystemURL ||window.webkitResolveLocalFileSystemURL;
 	window.requestFileSystem = window.requestFileSystem || window.webkitRequestFileSystem;
+
 	window.requestFileSystem
 	(
 		this.type, 
@@ -70,7 +74,14 @@ CswFile.prototype.init = function()
 		function(filesystem) 
 		{
 	  		obj.filesystem = filesystem;
-	  		obj.onInit();
+	  		obj.entryExist
+	  		(
+	  			obj.pathSD, 
+	  			function(sdExist)
+	  			{
+	  				obj.onInit(sdExist);
+	  			}
+	  		);
 		}, 
 		this.errorHandler
 	);
@@ -86,9 +97,11 @@ CswFile.prototype.init = function()
  * @since Method available since Release 0.0.1
  */
 
-CswFile.prototype.onInit = function()
+CswFile.prototype.onInit = function(sdExist)
 {
 	this.loaded = true;
+	this.hasSD = sdExist;
+
 	this.onCallback();
 }
 
@@ -115,9 +128,16 @@ CswFile.prototype.onInit = function()
 CswFile.prototype.on = function(callback)
 {
 	if(typeof callback == 'function')
+	{
+		alert('hasCallback');
 		this.onCallback = callback;
+	}
 	if(this.loaded)
+	{
+		alert('is loaded');
 		callback();
+	}
+
 }
 
 
@@ -606,6 +626,8 @@ CswFile.prototype.deleteFile = function(uri, callback)
 
 CswFile.prototype.deleteFolder = function(uri, callback)
 {
+	// Sécurité en cas d'erreur, pour ne pas supprimer l'ensemble d'un disque
+
 	if(uri.length == 0 || uri == '.' || uri == '/')
 		return;
 
@@ -668,18 +690,52 @@ CswFile.prototype.move = function(uri, to)
 }
 
 
-// work strangely
+/**
+ * Cette méthode permet de renomer un fichier ou dossier
+ *
+ * @param string 	uri 		le chemin absolue où lire le fichier/dossier, ce chemin est obtenu avec les
+ * 								variables: 
+ * 								- this.pathApp
+ *								- this.pathData
+ *								- this.pathExternal
+ *								- this.pathSD
+ *								- this.pathCache
+ * @param sting 	uriName		le chemin absolue + le nouveau nom du fichier/dossier
+ *
+ * @access public
+ * @see CswFile.prototype.move(uri, to)
+ * @since Class available since Release 0.0.1
+ */
 
-CswFile.prototype.rename = function(uri, name)
+CswFile.prototype.rename = function(uri, uriName)
 {
-	var obj = this;
+	this.move(uri, uriName);
+}
+
+/**
+ * Cette méthode permet de supprimer un dossier,
+ * elle supprime également le contenu du dossier
+ *
+ * @param string 	uri 			le chemin absolue où lire le fichier, ce chemin est obtenu avec les
+ * 									variables: 
+ * 									- this.pathApp
+ *									- this.pathData
+ *									- this.pathExternal
+ *									- this.pathSD
+ *									- this.pathCache
+ * @param function 	callback 		Cette fonction est appelée à la fin de la suppression
+ * 									callback: function(){ }
+ *
+ * @access public
+ * @since Class available since Release 0.0.1
+ */
+
+CswFile.prototype.entryExist = function(uri, callback)
+{
 	window.resolveLocalFileSystemURL
 	(
-		uri, 
-		function(fileEntry) 
-		{
-	  		fileEntry.moveTo(obj.filesystem.root, name);
-		}, 
-		this.errorHandler
+		uri,  
+		function(entry){ callback(true); },
+		function(e){ callback(false); }
 	);
 }
