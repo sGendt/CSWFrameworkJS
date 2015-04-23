@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html ng-app="appA">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, target-densitydpi=device-dpi" />
+
+
+        <script type="text/javascript" src="js/libs/jquery.min.2.1.0.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="css/style.css" />
+        <style type="text/css">
+        	#gallery{
+        		width: 100%;
+        	}
+
+        	#gallery .picture{
+        		width: 18%;
+        		float: left;  
+        		overflow:hidden; 
+        		position: relative;
+        		margin: 1%;     	
+        	}
+
+        	#gallery .picture img{
+        		position: absolute;
+        		left: 50%;
+        		top: 50%;     	
+        	}
+        </style>
+        <script type="text/javascript">
+        	(function($) 
+			{
+				$.fn.gallery = function(options)
+				{
+					// Instance
+
+					return new $.gallery(options, this);
+				};
+				
+				$.gallery = function(options, element)
+				{
+					// default configuration properties
+					
+					var defaults = 
+					{
+
+					};
+
+					this.options = $.extend(defaults, options);
+
+					// properties
+
+					this.element = $(element);
+
+					this.init();
+				}
+				
+				$.gallery.prototype =
+				{
+					
+					init: function()
+					{
+						var size = 0;
+
+						this.element.find('.picture').each
+						(
+							function(i)
+							{
+								if(i == 0)
+									size = $(this).width();
+
+								$(this).css({'height': size});
+
+								var img = $(this).find('img');
+
+								img.load
+								(
+									function()
+									{
+										var width = img.width();
+
+										var height = img.height();
+
+										var proportion = width / height;
+
+										if(proportion >= 1)
+										{
+											// resize height
+
+											var coef = height / size;
+
+										    var nwidth = width / coef;
+										    var nheight = size;
+										}
+										else
+										{
+											// resize width
+
+											var coef = width / size;
+
+										    var nwidth = height / coef;
+										    var nheight = size;
+										}
+
+										img.css
+										(
+											{
+												'width': nwidth+'px',
+												'height': nheight+'px',
+												'margin-left': -(nwidth/2)+'px',
+												'margin-top': -(nheight/2)+'px'
+											}
+										);
+									}
+								);
+							}
+						);
+					},
+				}	
+			})(jQuery);
+
+			$(document).ready
+			(
+				function()
+				{
+					$('#gallery').gallery();
+				}
+			);
+
+        </script>
+        <title>Gallery</title>
+    </head>
+    <body data-session="">
+        <div id="gallery">
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        	<div class="picture"><img src="http://lorempixel.com/1500/1300/city/" /></div>
+        </div>
+    </body>
+</html>
